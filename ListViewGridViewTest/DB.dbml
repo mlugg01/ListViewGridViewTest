@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="VDIS_BHI_beta" Class="DBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="ConnectionString" ConnectionString="Data Source=ctapsvr17\dev2016;Initial Catalog=VDIS_BHI_beta;Integrated Security=True" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Class="DBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Table Name="dbo.esdist" Member="districts">
     <Type Name="district" Id="ID52">
       <Column Name="dist_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
