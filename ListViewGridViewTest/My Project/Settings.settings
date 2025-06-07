@@ -18,5 +18,8 @@
 ]
 </Value>
     </Setting>
-    </Settings>
+    <Setting Name="DefaultConfig" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
 </SettingsFile>

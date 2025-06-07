@@ -72,12 +72,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="GridColumnConfigItem.vb" />
     <Compile Include="DB.designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>DB.dbml</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Include="GridColumnConfigItem.vb" />
     <Compile Include="ReadOnlyDataGrid.vb" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -141,9 +141,9 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
     </EmbeddedResource>
     <None Include="DB.dbml">
+      <SubType>Designer</SubType>
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>DB.designer.vb</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
     <None Include="DB.dbml.layout">
       <DependentUpon>DB.dbml</DependentUpon>

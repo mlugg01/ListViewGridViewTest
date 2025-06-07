@@ -54,29 +54,6 @@ Namespace My
             End Get
         End Property
         
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=ctapsvr17\dev2016;Initial Catalog=VDIS_BHI_beta;Integrated Security=T"& _ 
-            "rue")>  _
-        Public ReadOnly Property VDIS_BHI_betaConnectionString1() As String
-            Get
-                Return CType(Me("VDIS_BHI_betaConnectionString1"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-        Public Property DefaultConfig() As String
-            Get
-                Return CType(Me("DefaultConfig"),String)
-            End Get
-            Set
-                Me("DefaultConfig") = value
-            End Set
-        End Property
-        
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("["&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&Global.Microsoft.VisualBasic.ChrW(9)&"{""ColumnName"":""grcQuoteStatus"",""ColumnHeader"":""Q"",""DefaultDisplayIndex"":0,""De"& _ 
@@ -114,15 +91,16 @@ Namespace My
             End Set
         End Property
         
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=ctapsvr17\dev2016;Initial Catalog=VDIS_BHI_beta;Integrated Security=T"& _ 
-            "rue")>  _
-        Public ReadOnly Property VdisConnectionString() As String
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property DefaultConfig() As String
             Get
-                Return CType(Me("VdisConnectionString"),String)
+                Return CType(Me("DefaultConfig"),String)
             End Get
+            Set
+                Me("DefaultConfig") = value
+            End Set
         End Property
     End Class
 End Namespace

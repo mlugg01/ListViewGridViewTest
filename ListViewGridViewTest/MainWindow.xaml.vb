@@ -3,9 +3,9 @@
 Class MainWindow
 
     Private mcolItems As List(Of revenue_forecast)
-    Private mcolSalesReps As New List(Of GetContactRecordsResult)
-    Private mcolDistricts As List(Of district)
-    Private mcolCustomers As List(Of GetCompanyListResult)
+    Private mcolSalesReps As New List(Of SalesRep)
+    Private mcolDistricts As List(Of District)
+    Private mcolCustomers As List(Of Customer)
 
     Private miNonConfigIndex As Integer = 7
     Private mcDefaultConfig As String
@@ -19,15 +19,28 @@ Class MainWindow
 
     Private Function LoadLookupData() As Boolean
         Try
-            Dim db As New DBDataContext(My.Settings.VdisConnectionString)
-
-            mcolSalesReps = db.GetContactRecords().ToList
+            mcolSalesReps = New List(Of SalesRep)() From {
+                New SalesRep() With {
+                    .SalesRepId = "125315",
+                    .Name = "Jim Bob"
+                }
+            }
             CType(Me.Resources("SalesRepIdToName"), ObjectIDConverter).ItemsSource = New List(Of Object)(mcolSalesReps)
 
-            mcolDistricts = db.GetDistrictList().ToList
+            mcolDistricts = New List(Of District)() From {
+                New District() With {
+                    .DistId = 1234,
+                    .Name = "Edmonton"
+                }
+            }
             CType(Me.Resources("DistIdToName"), ObjectIDConverter).ItemsSource = New List(Of Object)(mcolDistricts)
 
-            mcolCustomers = db.GetCompanyList().ToList
+            mcolCustomers = New List(Of Customer)() From {
+                New Customer() With {
+                    .CustomerId = "5897",
+                    .Name = "Lugg Petro Co"
+                }
+            }
             CType(Me.Resources("OilCompIdToName"), ObjectIDConverter).ItemsSource = New List(Of Object)(mcolCustomers)
 
             Return True
@@ -68,7 +81,7 @@ Class MainWindow
                                                             If(.status = 4, "Completed",
                                                                 If(.status = 5, "Incompleted", "Lost")))))))
                         .dist_id = 1234
-                        .oilcomp_id = "5897                                    "
+                        .oilcomp_id = "5897"
                         .well_name = "Tank " & liRecId
                         .service_list = "PERF, GAMMARAY, 90 DEGREE, URI, UBI"
                         .sales_rep_employee_id = "125315              "
@@ -100,34 +113,6 @@ Class MainWindow
         MessageBox.Show("OK!")
     End Sub
 
-    'Private Sub lstItems_MouseDoubleClick(sender As Object, e As MouseButtonEventArgs) Handles lstItems.MouseDoubleClick
-    '    If Not ListViewItemWasDoubleClicked(sender, e) Then
-    '        Exit Sub
-    '    End If
-    '    MessageBox.Show(If(CType(lstItems.SelectedItem, revenue_forecast).disp_id, -1))
-    'End Sub
-
-    'Public Function ListViewItemWasDoubleClicked(sender As Object, e As MouseButtonEventArgs)
-    '    ' Call this sub in a ListBox's MouseDoubleClick event handler to prevent actions from
-    '    ' being performed when things like the Column Header or Scroll Bars are double-clicked.
-    '    Dim loDepObj As DependencyObject = CType(e.OriginalSource, DependencyObject)
-    '    Dim loListViewItem As ListViewItem = loDepObj.GetVisualParent(Of ListViewItem)
-    '    If loListViewItem Is Nothing Then
-    '        ' Something other than a loListBoxItemRow was double-clicked.
-    '        Return False
-    '    End If
-    '    Dim loLst As ListView = CType(sender, ListView)
-    '    loLst.SelectedItem = CType(loListViewItem, ListViewItem).DataContext
-    '    Return True
-    'End Function
-
-    'Private Sub lstItems_Initialized(sender As Object, e As EventArgs) Handles lstItems.Initialized
-    '    mcDefaultConfig = CType(lstItems.View, GridView).GetColumnConfigJson(True)
-    '    My.Settings.DefaultConfig = mcDefaultConfig
-    '    My.Settings.Save()
-    '    Debug.WriteLine(mcDefaultConfig)
-    'End Sub
-
     Private Sub btnSetDefaultConfig_Click(sender As Object, e As RoutedEventArgs) Handles btnSetDefaultConfig.Click
         CType(lstItems.View, GridView).SetColumnConfig(My.Settings.DefaultConfig)
     End Sub
@@ -139,5 +124,20 @@ Class MainWindow
     Private Sub btnReload_Click(sender As Object, e As RoutedEventArgs) Handles btnReload.Click
         LoadData()
     End Sub
+
+    Class SalesRep
+        Property SalesRepId As String
+        Property Name As String
+    End Class
+
+    Class District
+        Property DistId As Integer
+        Property Name
+    End Class
+
+    Class Customer
+        Property CustomerId As String
+        Property Name
+    End Class
 End Class
 

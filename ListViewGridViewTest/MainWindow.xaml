@@ -10,9 +10,9 @@
         <local:DispStatExportedFsoOrQuoteCountToColorConverter x:Key="ExportedQuoteCountToColorConverter"/>
         <local:DispStatExportedFsoOrQuoteCountToColorConverter x:Key="ExportedFsoCountToColorConverter"/>
         <local:DispStatJobApprovedStatusToColorConverter x:Key="JobApprovedStatusToColorConverter"/>
-        <local:ObjectIDConverter x:Key="DistIdToName" ValueMemberPath="dist_id" DisplayMemberPath="name"/>
-        <local:ObjectIDConverter x:Key="OilCompIdToName" ValueMemberPath="oilcomp_id" DisplayMemberPath="name"/>
-        <local:ObjectIDConverter x:Key="SalesRepIdToName" ValueMemberPath="employee_id" DisplayMemberPath="name"/>
+        <local:ObjectIDConverter x:Key="DistIdToName" ValueMemberPath="DistId" DisplayMemberPath="Name"/>
+        <local:ObjectIDConverter x:Key="OilCompIdToName" ValueMemberPath="CustomerId" DisplayMemberPath="Name"/>
+        <local:ObjectIDConverter x:Key="SalesRepIdToName" ValueMemberPath="SalesRepId" DisplayMemberPath="Name"/>
 
         <Style TargetType="{x:Type GridViewColumnHeader}" x:Key="GridViewColumnHeaderLeftAlignedStyle">
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
