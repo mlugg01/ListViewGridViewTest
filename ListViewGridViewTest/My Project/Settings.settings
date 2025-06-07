@@ -1,0 +1,40 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="" GeneratedClassName="MySettings" UseMySettingsClassName="true">
+  <Profiles />
+  <Settings>
+    <Setting Name="VDIS_BHI_betaConnectionString1" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;ConnectionString&gt;Data Source=ctapsvr17\dev2016;Initial Catalog=VDIS_BHI_beta;Integrated Security=True&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=ctapsvr17\dev2016;Initial Catalog=VDIS_BHI_beta;Integrated Security=True</Value>
+    </Setting>
+    <Setting Name="DefaultConfig" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="UserConfig" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[
+	{"ColumnName":"grcQuoteStatus","ColumnHeader":"Q","DefaultDisplayIndex":0,"DefaultWidth":20.0,"CanUserReorder":false,"CanUserSetVisibility":false,"DisplayIndex":0,"IsHidden":false},
+	{"ColumnName":"grcFsoStatus","ColumnHeader":"F","DefaultDisplayIndex":1,"DefaultWidth":24.0,"CanUserReorder":false,"CanUserSetVisibility":false,"DisplayIndex":1,"IsHidden":false},
+	{"ColumnName":"grcJobApprovedStatus","ColumnHeader":"Ap","DefaultDisplayIndex":2,"DefaultWidth":24.0,"CanUserReorder":false,"CanUserSetVisibility":false,"DisplayIndex":2,"IsHidden":false},
+	{"ColumnName":"grcYear","ColumnHeader":"Year","DefaultDisplayIndex":3,"DefaultWidth":40.0,"CanUserReorder":false,"CanUserSetVisibility":false,"DisplayIndex":3,"IsHidden":false},
+	{"ColumnName":"grcPeriod","ColumnHeader":"Period","DefaultDisplayIndex":4,"DefaultWidth":40.0,"CanUserReorder":false,"CanUserSetVisibility":false,"DisplayIndex":4,"IsHidden":false},
+	{"ColumnName":"grcJobOrderId","ColumnHeader":"Job Order ID","DefaultDisplayIndex":5,"DefaultWidth":80.0,"CanUserReorder":false,"CanUserSetVisibility":false,"DisplayIndex":5,"IsHidden":false},
+	{"ColumnName":"grcDistrict","ColumnHeader":"District","DefaultDisplayIndex":6,"DefaultWidth":140.0,"CanUserReorder":false,"CanUserSetVisibility":false,"DisplayIndex":6,"IsHidden":true},
+	{"ColumnName":"grcCustomer","ColumnHeader":"Customer","DefaultDisplayIndex":7,"DefaultWidth":180.0,"CanUserReorder":false,"CanUserSetVisibility":false,"DisplayIndex":8,"IsHidden":false},
+	{"ColumnName":"grcWellName","ColumnHeader":"Well Name","DefaultDisplayIndex":8,"DefaultWidth":140.0,"CanUserReorder":true,"CanUserSetVisibility":true,"DisplayIndex":9,"IsHidden":false},
+	{"ColumnName":"grcServices","ColumnHeader":"Services","DefaultDisplayIndex":9,"DefaultWidth":140.0,"CanUserReorder":true,"CanUserSetVisibility":true,"DisplayIndex":10,"IsHidden":false},
+	{"ColumnName":"grcSalesRep","ColumnHeader":"Sales Person","DefaultDisplayIndex":10,"DefaultWidth":140.0,"CanUserReorder":true,"CanUserSetVisibility":true,"DisplayIndex":7,"IsHidden":false}
+]
+</Value>
+    </Setting>
+    <Setting Name="VdisConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;ConnectionString&gt;Data Source=ctapsvr17\dev2016;Initial Catalog=VDIS_BHI_beta;Integrated Security=True&lt;/ConnectionString&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=ctapsvr17\dev2016;Initial Catalog=VDIS_BHI_beta;Integrated Security=True</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

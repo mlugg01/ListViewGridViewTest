@@ -1,0 +1,235 @@
+﻿<Window x:Class="MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ListViewGridViewTest"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="800" Width="1000" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+    <Window.Resources>
+        <local:DispStatExportedFsoOrQuoteCountToColorConverter x:Key="ExportedQuoteCountToColorConverter"/>
+        <local:DispStatExportedFsoOrQuoteCountToColorConverter x:Key="ExportedFsoCountToColorConverter"/>
+        <local:DispStatJobApprovedStatusToColorConverter x:Key="JobApprovedStatusToColorConverter"/>
+        <local:ObjectIDConverter x:Key="DistIdToName" ValueMemberPath="dist_id" DisplayMemberPath="name"/>
+        <local:ObjectIDConverter x:Key="OilCompIdToName" ValueMemberPath="oilcomp_id" DisplayMemberPath="name"/>
+        <local:ObjectIDConverter x:Key="SalesRepIdToName" ValueMemberPath="employee_id" DisplayMemberPath="name"/>
+
+        <Style TargetType="{x:Type GridViewColumnHeader}" x:Key="GridViewColumnHeaderLeftAlignedStyle">
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        </Style>
+        <Style TargetType="{x:Type GridViewColumnHeader}" x:Key="GridViewColumnHeaderRightAlignedStyle">
+            <Setter Property="HorizontalContentAlignment" Value="Right"/>
+        </Style>
+        <Style TargetType="{x:Type GridViewColumnHeader}" x:Key="GridViewColumnHeaderCenterAlignedStyle">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+
+        <SolidColorBrush x:Key="Item.MouseOver.Background" Color="Gold"/>
+        <SolidColorBrush x:Key="Item.MouseOver.Border" Color="#a826A0Da"/>
+        <SolidColorBrush x:Key="Item.SelectedInactive.Background" Color="#3DDADADA"/>
+        <SolidColorBrush x:Key="Item.SelectedInactive.Border" Color="#FFDADADA"/>
+        <SolidColorBrush x:Key="Item.SelectedActive.Background" Color="#3D26A0DA"/>
+        <SolidColorBrush x:Key="Item.SelectedActive.Border" Color="#FF26A0DA"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <local:ReadOnlyDataGrid x:Name="lstItems" VirtualizingPanel.IsVirtualizingWhenGrouping="True">
+            <ListView.Resources>
+                <ContextMenu x:Key="GridViewHeaderContextMenu">
+                    <MenuItem Header="Configure Columns..." Click="GridViewHeaderContextMenu_Click"/>
+                </ContextMenu>
+                <Style x:Key="DefaultGridViewColumnHeaderContextMenuStyle" TargetType="{x:Type GridViewColumnHeader}" BasedOn="{StaticResource GridViewColumnHeaderLeftAlignedStyle}">
+                    <Setter Property="ContextMenu" Value="{StaticResource GridViewHeaderContextMenu}"/>
+                </Style>
+                <Style x:Key="RightAlignedGridViewColumnHeaderContextMenuStyle" BasedOn="{StaticResource GridViewColumnHeaderRightAlignedStyle}" TargetType="{x:Type GridViewColumnHeader}">
+                    <Setter Property="ContextMenu" Value="{StaticResource GridViewHeaderContextMenu}"/>
+                </Style>
+            </ListView.Resources>
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <Border Background="#BFD8D8D8" BorderBrush="#FF697374" BorderThickness="1">
+                                <TextBlock Text="{Binding Name}" FontWeight="Bold" Margin="5" Foreground="Black" />
+                            </Border>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </ListView.GroupStyle>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="BorderBrush" Value="Gray"></Setter>
+                    <Setter Property="BorderThickness" Value="0,0,0,.8"></Setter>
+                    <Setter Property="Height" Value="24"/>
+                    <Setter Property="Margin" Value="-4,-1"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property="FontSize" Value="12"/>
+                    <Style.Triggers>
+                        <!--Additional Activity-->
+                        <DataTrigger Binding="{Binding psl}" Value="IN">
+                            <Setter Property="Background" Value="#649999FF"/>
+                        </DataTrigger>
+                        <!--Pending-->
+                        <DataTrigger Binding="{Binding status}" Value="2">
+                            <Setter Property="Background" Value="#96F5EDA7"/>
+                        </DataTrigger>
+                        <!--Sales-->
+                        <DataTrigger Binding="{Binding status}" Value="0">
+                            <Setter Property="Background" Value="#9699FFFF"/>
+                        </DataTrigger>
+                        <!--In Progress-->
+                        <DataTrigger Binding="{Binding status}" Value="1">
+                            <Setter Property="Background" Value="#96FFFF00"/>
+                        </DataTrigger>
+                        <!--Completed-->
+                        <DataTrigger Binding="{Binding status}" Value="4">
+                            <Setter Property="Background" Value="#9633FF33"/>
+                        </DataTrigger>
+                        <!--Lost-->
+                        <DataTrigger Binding="{Binding status}" Value="6">
+                            <Setter Property="Background" Value="#96FF99FF"/>
+                        </DataTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" Value="{StaticResource Item.MouseOver.Background}"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource Item.MouseOver.Border}"/>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Selector.IsSelectionActive" Value="False"/>
+                                <Condition Property="IsSelected" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" Value="{StaticResource Item.SelectedInactive.Background}"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource Item.SelectedInactive.Border}"/>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Selector.IsSelectionActive" Value="True"/>
+                                <Condition Property="IsSelected" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" Value="{StaticResource Item.SelectedActive.Background}"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource Item.SelectedActive.Border}"/>
+                        </MultiTrigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="TextElement.Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView x:Name="loGridView" ColumnHeaderContainerStyle="{StaticResource DefaultGridViewColumnHeaderContextMenuStyle}" AllowsColumnReorder="False">
+                    <GridViewColumn local:ListViewConfig.ColumnName="grcQuoteStatus" local:ListViewConfig.CanUserSetVisibility="False" Width="20" HeaderContainerStyle="{StaticResource GridViewColumnHeaderCenterAlignedStyle}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Q" ToolTip="Exported Quotes"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Ellipse Height="12" Width="12" Margin="-4,0" StrokeThickness="1" Stroke="black" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Ellipse.Fill>
+                                        <MultiBinding Converter="{StaticResource ExportedQuoteCountToColorConverter}">
+                                            <Binding Path="total_quote_count"/>
+                                            <Binding Path="exported_quote_count"/>
+                                            <Binding Path="status"/>
+                                        </MultiBinding>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn local:ListViewConfig.ColumnName="grcFsoStatus" local:ListViewConfig.CanUserSetVisibility="False" Width="24" HeaderContainerStyle="{StaticResource GridViewColumnHeaderCenterAlignedStyle}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="F" ToolTip="Exported FSOs"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Ellipse Height="12" Width="12" Margin="-4,0" StrokeThickness="1" Stroke="black" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Ellipse.Fill>
+                                        <MultiBinding Converter="{StaticResource ExportedFsoCountToColorConverter}">
+                                            <Binding Path="total_fso_count"/>
+                                            <Binding Path="exported_fso_count"/>
+                                            <Binding Path="status"/>
+                                        </MultiBinding>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn  local:ListViewConfig.ColumnName="grcJobApprovedStatus" local:ListViewConfig.CanUserSetVisibility="False" Width="24" HeaderContainerStyle="{StaticResource GridViewColumnHeaderCenterAlignedStyle}">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Ap" ToolTip="Job Approved Status"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Ellipse Height="12" Width="12" Margin="-4,0" StrokeThickness="1" Stroke="black" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Ellipse.Fill>
+                                        <MultiBinding Converter="{StaticResource JobApprovedStatusToColorConverter}">
+                                            <Binding Path="job_approved_state"/>
+                                            <Binding Path="status"/>
+                                        </MultiBinding>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Year" local:ListViewConfig.ColumnName="grcYear" Width="40" local:ListViewConfig.CanUserSetVisibility="False" HeaderContainerStyle="{StaticResource RightAlignedGridViewColumnHeaderContextMenuStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock HorizontalAlignment="Right" Text="{Binding revenue_year}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Period" local:ListViewConfig.ColumnName="grcPeriod" Width="40" local:ListViewConfig.CanUserSetVisibility="False" HeaderContainerStyle="{StaticResource RightAlignedGridViewColumnHeaderContextMenuStyle}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock HorizontalAlignment="Right" Text="{Binding revenue_month}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Job Order ID"  Width="80" local:ListViewConfig.ColumnName="grcJobOrderId" local:ListViewConfig.CanUserSetVisibility="False">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock x:Name="lblDispId" Text="{Binding formatted_disp_id}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="4,0"/>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding dispatch_offline_flag}" Value="True">
+                                        <Setter TargetName="lblDispId" Property="Foreground" Value="Red"/>
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="District"  Width="140" DisplayMemberBinding="{Binding dist_id, Converter={StaticResource DistIdToName}}" local:ListViewConfig.ColumnName="grcDistrict"/>
+                    <GridViewColumn Header="Customer"  Width="180" DisplayMemberBinding="{Binding oilcomp_id, Converter={StaticResource OilCompIdToName}}" local:ListViewConfig.ColumnName="grcCustomer"/>
+                    <GridViewColumn Header="Well Name"  Width="140" DisplayMemberBinding="{Binding well_name}" local:ListViewConfig.ColumnName="grcWellName" local:ListViewConfig.CanUserSetVisibility="True" local:ListViewConfig.CanUserReorder="True"/>
+                    <GridViewColumn Header="Services" Width="140"  DisplayMemberBinding="{Binding service_list}" local:ListViewConfig.ColumnName="grcServices" local:ListViewConfig.CanUserSetVisibility="True" local:ListViewConfig.CanUserReorder="True"/>
+                    <GridViewColumn Header="Sales Person" Width="140"  DisplayMemberBinding="{Binding sales_rep_employee_id, Converter={StaticResource SalesRepIdToName}}" local:ListViewConfig.ColumnName="grcSalesRep" local:ListViewConfig.CanUserSetVisibility="True" local:ListViewConfig.CanUserReorder="True"/>
+                </GridView>
+            </ListView.View>
+        </local:ReadOnlyDataGrid>
+        <Border Grid.Column="1">
+            <Grid Margin="20,50" DataContext="{Binding SelectedItem, ElementName=lstItems}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Button x:Name="btnReload" Content="Reload" Margin="5"/>
+                <Button x:Name="btnSetDefaultConfig" Content="Set Default Config" Margin="5" Grid.Row="1"/>
+                <Button x:Name="btnSetUserConfig" Content="Set User Config" Grid.Column="1" Margin="5" Grid.Row="1"/>
+                <TextBlock Text="Well Name:" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="2" Grid.Row="2"/>
+                <TextBox Text="{Binding well_name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="3" Width="150" Height="24" Grid.Row="2"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
